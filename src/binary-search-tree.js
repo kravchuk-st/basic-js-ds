@@ -19,51 +19,36 @@ constructor() {
     this.root_1 = addNode(this.root_1, data);
 
     function addNode(node, data) {
-      if (!node) {
-        return new Node(data);
-      }
+      if (!node) return new Node(data);
 
-      if (node.data == data) {
-        return node;
-      }
+      if (node.data == data) return node;
 
-      if (data < node.data) {
-        node.left = addNode(node.left, data);
-      } else {
-        node.right = addNode(node.right, data);
-      }
+      if (data < node.data) node.left = addNode(node.left, data);
+      else node.right = addNode(node.right, data);
       return node;
     }
   }
 
   has(data) {
     function hasNode(node, data) {
-      if (!node) {
-        return false;
-      }
+      if (!node) return false;
 
-      if (node.data == data) {
-        return true;
-      }
+      if (node.data == data) return true;
 
-      return data < node.data ? hasNode(node.left, data) : hasNode(node.right, data);
+      if (data < node.data) return hasNode(node.left, data);
+      else return hasNode(node.right, data);
     }
     return hasNode(this.root_1, data);
   }
 
   find(data) {
     function findNode(node, data) {
-      if (!node) {
-        return null;
-      }
+      if (!node) return null;
 
-      if (node.data == data) {
-        return node;
-      }
+      if (node.data == data) return node;
 
-      if (data < node.data) {
-        return findNode(node.left, data);
-      } else return findNode(node.right, data);
+      if (data < node.data) return findNode(node.left, data);
+      else return findNode(node.right, data);
     }
     return findNode(this.root_1, data);
   }
@@ -73,15 +58,13 @@ constructor() {
       if (!node) return null;
 
       if (node.data == data) {
-        if (!node.left && !node.right) {
-          return null;
-        }
-        if (!node.right) {
-          return node.left;
-        }
-        if (!node.left) {
-          return node.right;
-        }
+        // У узла нет детей
+        if (!node.left && !node.right) return null;
+        // У узла только правый ребенок
+        if (!node.left) return node.right;
+        // У узла только левый ребенок
+        if (!node.right) return node.left;
+        // У узла двое детей
         let current = node.right;
         while (current.left) {
           current = current.left;
@@ -102,29 +85,19 @@ constructor() {
 
   min() {
     function minNode(node) {
-      if (node.left) {
-        return minNode(node.left);
-      } else {
-        return node.data;
-      }
+      if (node.left) return minNode(node.left);
+      else return node.data;
     }
-    if (!this.root_1) {
-      return null;
-    }
+    if (!this.root_1) return null;
     return minNode(this.root_1);
   }
 
   max() {
     function maxNode(node) {
-      if (node.right) {
-        return maxNode(node.right);
-      } else {
-        return node.data;
-      }
+      if (node.right) return maxNode(node.right);
+      else return node.data;
     }
-    if (!this.root_1) {
-      return null;
-    }
+    if (!this.root_1) return null;
     return maxNode(this.root_1);
   }
 }
